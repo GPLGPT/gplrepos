@@ -1,3 +1,2 @@
 This is File A.
 This is the change to the file A.
-This change needs to be removed.
