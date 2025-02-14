@@ -12,17 +12,31 @@ pool:
 stages:
 -  stage: Build
    jobs:
-   - job: Job1
+   - job: Build
      steps:
-     - bash: echo Hello job1, world!
+     - bash: echo Hello Build
        displayName: 'Run a one-line script'
--  stage: Dev
+-  stage: Staging
+   dependsOn: Build
    jobs:
-   - job: Job2
-#     dependsOn: Job1
+   - job: Staging
      steps:
      - script:
-         echo Hello job2, world!
+         echo Hello Staging
+-  stage: Dev
+   dependsOn: Build
+   jobs:
+   - job: Dev
+     steps:
+     - script:
+         echo Hello Dev
+-  stage: Deploy
+   dependsOn: Dev
+   jobs:
+   - job: Deploy
+     steps:
+     - script:
+         echo Hello Deploy
          echo Add other tasks to build, test, and deploy your project.
          echo See https://aka.ms/yaml
        displayName: 'Run a multi-line script'
