@@ -15,6 +15,7 @@ stages:
    - job: Build
      steps:
      - bash: echo Hello Build
+     - bash: echo $(PipelineLevelVariable)
        displayName: 'Run a one-line script'
 -  stage: Staging
    dependsOn: Build
@@ -24,12 +25,15 @@ stages:
      - script:
          echo Hello Staging
 -  stage: Dev
+   variables:
+     environment: Dev
    dependsOn: Build
    jobs:
    - job: Dev
      steps:
      - script:
-         echo Hello Dev
+        echo Hello Dev
+        echo $(environment)Dev
 -  stage: Deploy
    dependsOn:
    - Staging
