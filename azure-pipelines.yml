@@ -31,7 +31,9 @@ stages:
      - script:
          echo Hello Dev
 -  stage: Deploy
-   dependsOn: Dev
+   dependsOn:
+   - Staging
+   - Dev
    jobs:
    - job: Deploy
      steps:
