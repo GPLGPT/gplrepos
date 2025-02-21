@@ -20,7 +20,22 @@ stages:
      - bash: echo $(Build.BinariesDirectory)
      - bash: echo $(Agent.OS)
      - bash: echo $(Environment.Name)
+     - bash: ls -R $(System.DefaultWorkingDirectory)
+     - bash: echo $(Build.ArtifactStagingDirectory)
+     - bash: java -version
+     - bash: node --version
+     - bash: python --version
+     - bash: mvn -version
+     - bash: ls -R $(Build.ArtifactStagingDirectory)
+     - task: CopyFiles@2
+       inputs:
+         SourceFolder: '$(System.DefaultWorkingDirectory)'
+         Contents: |
+           **/*.yml
+           **/*.tf
+         TargetFolder: '$(Build.ArtifactStagingDirectory)'
        displayName: 'Run a one-line script'
+     - bash: ls -R $(Build.ArtifactStagingDirectory)
 -  stage: Staging
    dependsOn: Build
    jobs:
