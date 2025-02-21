@@ -16,6 +16,10 @@ stages:
      steps:
      - bash: echo Hello Build
      - bash: echo $(PipelineLevelVariable)
+     - bash: echo $(Build.BuildId)
+     - bash: echo $(Build.BinariesDirectory)
+     - bash: echo $(Agent.OS)
+     - bash: echo $(Environment.Name)
        displayName: 'Run a one-line script'
 -  stage: Staging
    dependsOn: Build
