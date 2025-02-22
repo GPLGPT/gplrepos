@@ -40,7 +40,7 @@ stages:
        inputs:
          PathtoPublish: '$(Build.ArtifactStagingDirectory)'
          ArtifactName: 'drop'
-         publishLocation: 'Container'
+         publishLocation: 'Container'    
 -  stage: Staging
    dependsOn: Build
    jobs:
@@ -48,6 +48,13 @@ stages:
      steps:
      - script:
          echo Hello Staging
+   - deployment: DeployStaging
+     environment: Staging
+     strategy:
+       runOnce:
+         deploy:
+           steps:
+           - script: echo deploy to staging
 -  stage: Dev
    variables:
      environment: Dev
@@ -58,6 +65,13 @@ stages:
      - script:
         echo Hello Dev
         echo $(environment)Dev
+   - deployment: DeployDev
+     environment: Dev
+     strategy:
+       runOnce:
+         deploy:
+           steps:
+           - script: echo deploy to Dev
 -  stage: Deploy
    dependsOn:
    - Staging
