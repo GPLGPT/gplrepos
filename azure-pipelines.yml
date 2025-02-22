@@ -6,8 +6,17 @@
 trigger:
 - main
 
+strategy:
+  matrix:
+    linux:
+      OperatingSystem: 'ubuntu-latest'
+    mac:
+      OperatingSystem: 'macOS-latest'
+    windows:
+      imageName: 'windows-latest'
+
 pool:
-  vmImage: ubuntu-latest
+  vmImage: $(OperatingSystem)
 
 stages:
 -  stage: Build
@@ -15,6 +24,7 @@ stages:
    - job: Build
      steps:
      - bash: echo Hello Build
+     - bash: echo Running on $(OperatingSystem)
      - bash: echo $(PipelineLevelVariable)
      - bash: echo $(Build.BuildId)
      - bash: echo $(Build.BinariesDirectory)
